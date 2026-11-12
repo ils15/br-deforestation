@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { DeforestationTab } from './components/DeforestationTab'
-import { PantheonFlowTab } from './components/PantheonFlowTab'
 import { LibraryTab } from './components/LibraryTab'
+import { ExternalSkillsTab } from './components/ExternalSkillsTab'
 import './App.css'
 
-type TabId = 'desmatamento' | 'fluxo' | 'biblioteca'
+type TabId = 'desmatamento' | 'biblioteca' | 'skills'
 
 const tabs: { id: TabId; label: string }[] = [
   { id: 'desmatamento', label: 'Desmatamento' },
-  { id: 'fluxo', label: 'Fluxo Pantheon' },
   { id: 'biblioteca', label: 'Biblioteca' },
+  { id: 'skills', label: 'Skills Externas' },
 ]
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <h1>Pantheon Dashboard</h1>
-        <p className="subtitle">Painel de métricas de desmatamento e fluxo Pantheon</p>
+        <p className="subtitle">Painel de métricas de desmatamento e biblioteca Pantheon</p>
       </header>
       <nav className="tabs" role="tablist" aria-label="Abas">
         {tabs.map((t) => (
@@ -36,8 +36,8 @@ export default function App() {
       </nav>
       <main className="tab-content">
         {active === 'desmatamento' && <DeforestationTab />}
-        {active === 'fluxo' && <PantheonFlowTab />}
         {active === 'biblioteca' && <LibraryTab />}
+        {active === 'skills' && <ExternalSkillsTab />}
       </main>
     </div>
   )
