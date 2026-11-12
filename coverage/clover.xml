@@ -1,128 +1,201 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1794502341123" clover="3.2.0">
-  <project timestamp="1794502341124" name="All files">
-    <metrics statements="233" coveredstatements="233" conditionals="148" coveredconditionals="133" methods="85" coveredmethods="85" elements="466" coveredelements="451" complexity="0" loc="233" ncloc="233" packages="2" files="11" classes="11"/>
-    <package name="components">
-      <metrics statements="162" coveredstatements="162" conditionals="122" coveredconditionals="107" methods="76" coveredmethods="76"/>
+<coverage generated="1794505522903" clover="3.2.0">
+  <project timestamp="1794505522903" name="All files">
+    <metrics statements="370" coveredstatements="354" conditionals="292" coveredconditionals="247" methods="125" coveredmethods="119" elements="787" coveredelements="720" complexity="0" loc="370" ncloc="370" packages="4" files="16" classes="16"/>
+    <package name="src">
+      <metrics statements="49" coveredstatements="39" conditionals="35" coveredconditionals="22" methods="22" coveredmethods="18"/>
+      <file name="App.tsx" path="/home/ils15/dev/br-deforestation/src/App.tsx">
+        <metrics statements="49" coveredstatements="39" conditionals="35" coveredconditionals="22" methods="22" coveredmethods="18"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="30" count="8" type="stmt"/>
+        <line num="31" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="35" count="105" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="39" count="45" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="8" type="stmt"/>
+        <line num="44" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="46" count="105" type="cond" truecount="1" falsecount="1"/>
+        <line num="47" count="105" type="stmt"/>
+        <line num="48" count="45" type="stmt"/>
+        <line num="49" count="5" type="stmt"/>
+        <line num="60" count="8" type="stmt"/>
+        <line num="61" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="63" count="8" type="cond" truecount="3" falsecount="1"/>
+        <line num="65" count="32" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="85" count="8" type="stmt"/>
+        <line num="86" count="8" type="cond" truecount="4" falsecount="1"/>
+        <line num="88" count="5" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="8" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="122" count="32" type="stmt"/>
+        <line num="150" count="32" type="stmt"/>
+        <line num="153" count="64" type="stmt"/>
+        <line num="165" count="2" type="stmt"/>
+        <line num="166" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="224" coveredstatements="218" conditionals="193" coveredconditionals="161" methods="87" coveredmethods="85"/>
       <file name="AmazoniaPanel.tsx" path="/home/ils15/dev/br-deforestation/src/components/AmazoniaPanel.tsx">
-        <metrics statements="8" coveredstatements="8" conditionals="7" coveredconditionals="6" methods="6" coveredmethods="6"/>
-        <line num="18" count="5" type="cond" truecount="2" falsecount="1"/>
-        <line num="21" count="5" type="stmt"/>
-        <line num="22" count="105" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="5" type="stmt"/>
-        <line num="26" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="27" count="9" type="stmt"/>
-        <line num="29" count="32" type="stmt"/>
-        <line num="32" count="5" type="stmt"/>
+        <metrics statements="9" coveredstatements="9" conditionals="11" coveredconditionals="9" methods="6" coveredmethods="6"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="29" count="7" type="cond" truecount="2" falsecount="1"/>
+        <line num="32" count="7" type="stmt"/>
+        <line num="33" count="147" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="37" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="9" type="stmt"/>
+        <line num="40" count="48" type="stmt"/>
+        <line num="43" count="7" type="stmt"/>
       </file>
       <file name="CerradoPanel.tsx" path="/home/ils15/dev/br-deforestation/src/components/CerradoPanel.tsx">
-        <metrics statements="8" coveredstatements="8" conditionals="7" coveredconditionals="6" methods="6" coveredmethods="6"/>
-        <line num="16" count="2" type="cond" truecount="2" falsecount="1"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="20" count="18" type="cond" truecount="2" falsecount="0"/>
+        <metrics statements="9" coveredstatements="9" conditionals="11" coveredconditionals="9" methods="6" coveredmethods="6"/>
         <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="12" type="stmt"/>
-        <line num="27" count="11" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
+        <line num="27" count="3" type="cond" truecount="2" falsecount="1"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="31" count="27" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="12" type="stmt"/>
+        <line num="38" count="22" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
       </file>
       <file name="ComparativoPanel.tsx" path="/home/ils15/dev/br-deforestation/src/components/ComparativoPanel.tsx">
-        <metrics statements="41" coveredstatements="41" conditionals="11" coveredconditionals="9" methods="21" coveredmethods="21"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="26" count="4" type="cond" truecount="2" falsecount="1"/>
-        <line num="30" count="4" type="stmt"/>
-        <line num="31" count="63" type="cond" truecount="2" falsecount="0"/>
-        <line num="34" count="4" type="stmt"/>
-        <line num="35" count="27" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="40" count="3" type="stmt"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="42" count="60" type="stmt"/>
-        <line num="44" count="3" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
-        <line num="48" count="4" type="stmt"/>
-        <line num="49" count="63" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
-        <line num="51" count="3" type="stmt"/>
-        <line num="52" count="3" type="stmt"/>
-        <line num="53" count="57" type="stmt"/>
-        <line num="55" count="3" type="stmt"/>
+        <metrics statements="42" coveredstatements="42" conditionals="19" coveredconditionals="18" methods="21" coveredmethods="21"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="40" count="5" type="cond" truecount="2" falsecount="1"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="45" count="84" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="49" count="36" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="5" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="56" count="60" type="stmt"/>
         <line num="58" count="4" type="stmt"/>
-        <line num="59" count="84" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
-        <line num="61" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="62" count="14" type="stmt"/>
+        <line num="61" count="5" type="stmt"/>
+        <line num="62" count="5" type="stmt"/>
+        <line num="63" count="63" type="stmt"/>
+        <line num="64" count="4" type="stmt"/>
         <line num="65" count="4" type="stmt"/>
-        <line num="66" count="84" type="stmt"/>
-        <line num="67" count="14" type="stmt"/>
-        <line num="68" count="4" type="stmt"/>
-        <line num="71" count="4" type="stmt"/>
-        <line num="72" count="3" type="stmt"/>
-        <line num="73" count="3" type="stmt"/>
-        <line num="74" count="459" type="stmt"/>
-        <line num="75" count="63" type="cond" truecount="2" falsecount="0"/>
-        <line num="77" count="3" type="stmt"/>
-        <line num="80" count="4" type="stmt"/>
-        <line num="81" count="27" type="stmt"/>
-        <line num="82" count="27" type="stmt"/>
-        <line num="83" count="3" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="57" type="stmt"/>
+        <line num="69" count="4" type="stmt"/>
+        <line num="72" count="5" type="stmt"/>
+        <line num="73" count="84" type="stmt"/>
+        <line num="74" count="5" type="stmt"/>
+        <line num="75" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="76" count="14" type="stmt"/>
+        <line num="79" count="5" type="stmt"/>
+        <line num="80" count="84" type="stmt"/>
+        <line num="81" count="14" type="stmt"/>
+        <line num="82" count="5" type="stmt"/>
+        <line num="85" count="5" type="stmt"/>
         <line num="86" count="4" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="140" count="20" type="stmt"/>
+        <line num="87" count="4" type="stmt"/>
+        <line num="88" count="459" type="stmt"/>
+        <line num="89" count="63" type="cond" truecount="2" falsecount="0"/>
+        <line num="91" count="4" type="stmt"/>
+        <line num="94" count="5" type="stmt"/>
+        <line num="95" count="27" type="stmt"/>
+        <line num="96" count="27" type="stmt"/>
+        <line num="97" count="4" type="stmt"/>
+        <line num="100" count="5" type="stmt"/>
+        <line num="161" count="1" type="stmt"/>
+        <line num="164" count="25" type="stmt"/>
       </file>
       <file name="DeforestationMap.tsx" path="/home/ils15/dev/br-deforestation/src/components/DeforestationMap.tsx">
-        <metrics statements="51" coveredstatements="51" conditionals="50" coveredconditionals="40" methods="15" coveredmethods="15"/>
+        <metrics statements="66" coveredstatements="64" conditionals="60" coveredconditionals="45" methods="19" coveredmethods="17"/>
         <line num="10" count="2" type="stmt"/>
-        <line num="25" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
-        <line num="40" count="23" type="stmt"/>
-        <line num="42" count="23" type="stmt"/>
-        <line num="43" count="13" type="stmt"/>
-        <line num="44" count="13" type="cond" truecount="2" falsecount="0"/>
-        <line num="45" count="12" type="stmt"/>
-        <line num="46" count="11" type="stmt"/>
-        <line num="48" count="11" type="cond" truecount="1" falsecount="1"/>
-        <line num="51" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="53" count="13" type="stmt"/>
-        <line num="54" count="12" type="stmt"/>
-        <line num="58" count="23" type="stmt"/>
-        <line num="59" count="23" type="cond" truecount="2" falsecount="0"/>
-        <line num="60" count="23" type="cond" truecount="2" falsecount="0"/>
-        <line num="61" count="23" type="cond" truecount="2" falsecount="0"/>
-        <line num="63" count="23" type="stmt"/>
-        <line num="66" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="67" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="70" count="7" type="stmt"/>
-        <line num="80" count="23" type="stmt"/>
-        <line num="83" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="84" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="85" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="88" count="7" type="stmt"/>
-        <line num="89" count="7" type="stmt"/>
-        <line num="92" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="93" count="7" type="stmt"/>
-        <line num="95" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="97" count="7" type="stmt"/>
-        <line num="98" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="100" count="7" type="stmt"/>
-        <line num="101" count="7" type="stmt"/>
-        <line num="102" count="14" type="cond" truecount="3" falsecount="1"/>
-        <line num="103" count="14" type="stmt"/>
-        <line num="104" count="14" type="cond" truecount="1" falsecount="1"/>
-        <line num="105" count="14" type="stmt"/>
-        <line num="109" count="7" type="stmt"/>
-        <line num="112" count="7" type="cond" truecount="4" falsecount="0"/>
-        <line num="113" count="3" type="stmt"/>
-        <line num="114" count="3" type="stmt"/>
-        <line num="115" count="3" type="stmt"/>
-        <line num="116" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="118" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="125" count="23" type="stmt"/>
-        <line num="130" count="23" type="stmt"/>
-        <line num="158" count="2" type="stmt"/>
-        <line num="161" count="1" type="stmt"/>
+        <line num="25" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="35" count="15" type="stmt"/>
+        <line num="36" count="15" type="stmt"/>
+        <line num="37" count="15" type="stmt"/>
+        <line num="38" count="15" type="stmt"/>
+        <line num="40" count="15" type="stmt"/>
+        <line num="41" count="15" type="stmt"/>
+        <line num="42" count="15" type="stmt"/>
+        <line num="43" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="44" count="15" type="cond" truecount="2" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="15" type="stmt"/>
+        <line num="50" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="51" count="15" type="stmt"/>
+        <line num="52" count="15" type="stmt"/>
+        <line num="53" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="56" count="15" type="stmt"/>
+        <line num="65" count="15" type="stmt"/>
+        <line num="67" count="15" type="stmt"/>
+        <line num="68" count="9" type="stmt"/>
+        <line num="69" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="8" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
+        <line num="73" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="76" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="78" count="9" type="stmt"/>
+        <line num="79" count="8" type="stmt"/>
+        <line num="83" count="15" type="stmt"/>
+        <line num="84" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="85" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="86" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="88" count="15" type="stmt"/>
+        <line num="91" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="92" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="95" count="6" type="stmt"/>
+        <line num="105" count="15" type="stmt"/>
+        <line num="108" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="109" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="110" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="113" count="6" type="stmt"/>
+        <line num="114" count="6" type="stmt"/>
+        <line num="117" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="118" count="6" type="stmt"/>
+        <line num="120" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="122" count="6" type="stmt"/>
+        <line num="123" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="125" count="6" type="stmt"/>
+        <line num="126" count="6" type="stmt"/>
+        <line num="127" count="12" type="cond" truecount="3" falsecount="1"/>
+        <line num="128" count="12" type="stmt"/>
+        <line num="129" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="130" count="12" type="stmt"/>
+        <line num="134" count="6" type="stmt"/>
+        <line num="137" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="138" count="3" type="stmt"/>
+        <line num="139" count="3" type="stmt"/>
+        <line num="140" count="3" type="stmt"/>
+        <line num="141" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="143" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="150" count="15" type="stmt"/>
+        <line num="155" count="15" type="stmt"/>
       </file>
       <file name="Filters.tsx" path="/home/ils15/dev/br-deforestation/src/components/Filters.tsx">
         <metrics statements="28" coveredstatements="28" conditionals="16" coveredconditionals="16" methods="15" coveredmethods="15"/>
@@ -132,13 +205,13 @@
         <line num="29" count="40" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
         <line num="32" count="42" type="stmt"/>
-        <line num="36" count="15" type="stmt"/>
-        <line num="37" count="15" type="cond" truecount="4" falsecount="0"/>
-        <line num="38" count="15" type="stmt"/>
-        <line num="39" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="42" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="43" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="37" count="16" type="cond" truecount="4" falsecount="0"/>
+        <line num="38" count="16" type="stmt"/>
+        <line num="39" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="16" type="cond" truecount="2" falsecount="0"/>
         <line num="46" count="4" type="stmt"/>
         <line num="47" count="4" type="stmt"/>
         <line num="48" count="4" type="stmt"/>
@@ -146,64 +219,124 @@
         <line num="53" count="4" type="stmt"/>
         <line num="54" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="55" count="4" type="stmt"/>
-        <line num="58" count="15" type="stmt"/>
+        <line num="58" count="16" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="88" count="1" type="stmt"/>
         <line num="98" count="1" type="stmt"/>
-        <line num="101" count="60" type="stmt"/>
+        <line num="101" count="64" type="stmt"/>
         <line num="116" count="1" type="stmt"/>
         <line num="117" count="1" type="stmt"/>
-        <line num="121" count="240" type="stmt"/>
+        <line num="121" count="256" type="stmt"/>
       </file>
       <file name="KpiGrid.tsx" path="/home/ils15/dev/br-deforestation/src/components/KpiGrid.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
-        <line num="24" count="10" type="cond" truecount="3" falsecount="0"/>
-        <line num="25" count="10" type="stmt"/>
-        <line num="33" count="51" type="stmt"/>
+        <line num="24" count="11" type="cond" truecount="3" falsecount="0"/>
+        <line num="25" count="11" type="stmt"/>
+        <line num="33" count="58" type="stmt"/>
       </file>
       <file name="MapLegend.tsx" path="/home/ils15/dev/br-deforestation/src/components/MapLegend.tsx">
         <metrics statements="5" coveredstatements="5" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
         <line num="2" count="3" type="stmt"/>
-        <line num="20" count="26" type="stmt"/>
-        <line num="21" count="26" type="cond" truecount="2" falsecount="0"/>
-        <line num="22" count="26" type="stmt"/>
-        <line num="23" count="26" type="stmt"/>
-      </file>
-      <file name="MapaPanel.tsx" path="/home/ils15/dev/br-deforestation/src/components/MapaPanel.tsx">
-        <metrics statements="10" coveredstatements="10" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="8" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="21" type="cond" truecount="2" falsecount="0"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="23" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="16" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="20" count="18" type="stmt"/>
+        <line num="21" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="18" type="stmt"/>
+        <line num="23" count="18" type="stmt"/>
       </file>
       <file name="MatopibaPanel.tsx" path="/home/ils15/dev/br-deforestation/src/components/MatopibaPanel.tsx">
-        <metrics statements="8" coveredstatements="8" conditionals="5" coveredconditionals="4" methods="6" coveredmethods="6"/>
+        <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="6" methods="6" coveredmethods="6"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="28" count="3" type="cond" truecount="2" falsecount="1"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="36" type="stmt"/>
+        <line num="33" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+      </file>
+      <file name="MobileDrawer.tsx" path="/home/ils15/dev/br-deforestation/src/components/MobileDrawer.tsx">
+        <metrics statements="42" coveredstatements="39" conditionals="30" coveredconditionals="23" methods="6" coveredmethods="6"/>
         <line num="14" count="2" type="stmt"/>
-        <line num="18" count="2" type="cond" truecount="2" falsecount="1"/>
+        <line num="24" count="18" type="cond" truecount="1" falsecount="2"/>
+        <line num="25" count="18" type="stmt"/>
+        <line num="26" count="18" type="stmt"/>
+        <line num="27" count="18" type="stmt"/>
+        <line num="28" count="18" type="stmt"/>
+        <line num="29" count="18" type="stmt"/>
+        <line num="32" count="18" type="stmt"/>
+        <line num="33" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="15" type="stmt"/>
+        <line num="36" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="9" type="stmt"/>
+        <line num="39" count="12" type="stmt"/>
+        <line num="41" count="9" type="stmt"/>
+        <line num="42" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="46" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="51" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="59" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="68" count="9" type="stmt"/>
+        <line num="69" count="9" type="stmt"/>
+        <line num="70" count="9" type="stmt"/>
+        <line num="71" count="9" type="stmt"/>
+        <line num="72" count="9" type="stmt"/>
+        <line num="73" count="9" type="stmt"/>
+        <line num="77" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="79" count="9" type="stmt"/>
+      </file>
+      <file name="NavBar.tsx" path="/home/ils15/dev/br-deforestation/src/components/NavBar.tsx">
+        <metrics statements="10" coveredstatements="9" conditionals="19" coveredconditionals="15" methods="4" coveredmethods="4"/>
         <line num="21" count="2" type="stmt"/>
-        <line num="22" count="24" type="stmt"/>
-        <line num="23" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="27" count="5" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="41" count="12" type="cond" truecount="3" falsecount="0"/>
+        <line num="42" count="12" type="stmt"/>
+        <line num="43" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="49" count="12" type="stmt"/>
+        <line num="80" count="51" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+      </file>
+      <file name="SkipLink.tsx" path="/home/ils15/dev/br-deforestation/src/components/SkipLink.tsx">
+        <metrics statements="1" coveredstatements="1" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="12" count="10" type="stmt"/>
       </file>
     </package>
-    <package name="lib">
-      <metrics statements="71" coveredstatements="71" conditionals="26" coveredconditionals="26" methods="9" coveredmethods="9"/>
+    <package name="src.context">
+      <metrics statements="4" coveredstatements="4" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
+      <file name="FilterContext.tsx" path="/home/ils15/dev/br-deforestation/src/context/FilterContext.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
+        <line num="15" count="23" type="cond" truecount="3" falsecount="0"/>
+        <line num="16" count="23" type="cond" truecount="3" falsecount="0"/>
+        <line num="17" count="23" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.lib">
+      <metrics statements="93" coveredstatements="93" conditionals="54" coveredconditionals="54" methods="15" coveredmethods="15"/>
       <file name="analytics.ts" path="/home/ils15/dev/br-deforestation/src/lib/analytics.ts">
         <metrics statements="60" coveredstatements="60" conditionals="20" coveredconditionals="20" methods="5" coveredmethods="5"/>
         <line num="7" count="62" type="cond" truecount="2" falsecount="0"/>
         <line num="8" count="61" type="stmt"/>
         <line num="9" count="61" type="stmt"/>
-        <line num="13" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="13" count="8" type="cond" truecount="4" falsecount="0"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="16" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="60" type="stmt"/>
@@ -227,8 +360,8 @@
         <line num="43" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="44" count="9" type="stmt"/>
         <line num="45" count="9" type="stmt"/>
-        <line num="49" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="50" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="51" count="6" type="stmt"/>
         <line num="52" count="6" type="stmt"/>
         <line num="53" count="6" type="stmt"/>
@@ -237,8 +370,8 @@
         <line num="56" count="19" type="stmt"/>
         <line num="57" count="19" type="stmt"/>
         <line num="59" count="6" type="stmt"/>
-        <line num="63" count="7" type="stmt"/>
-        <line num="64" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="8" type="stmt"/>
+        <line num="64" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="65" count="6" type="stmt"/>
         <line num="66" count="6" type="stmt"/>
         <line num="67" count="6" type="stmt"/>
@@ -259,19 +392,44 @@
         <line num="84" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="85" count="5" type="stmt"/>
       </file>
+      <file name="chartTheme.ts" path="/home/ils15/dev/br-deforestation/src/lib/chartTheme.ts">
+        <metrics statements="22" coveredstatements="22" conditionals="28" coveredconditionals="28" methods="6" coveredmethods="6"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="56" count="6" type="stmt"/>
+        <line num="61" count="6" type="stmt"/>
+        <line num="69" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="15" type="cond" truecount="5" falsecount="0"/>
+        <line num="71" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="72" count="4" type="stmt"/>
+        <line num="74" count="9" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="82" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="83" count="8" type="cond" truecount="5" falsecount="0"/>
+        <line num="84" count="5" type="stmt"/>
+        <line num="88" count="2" type="stmt"/>
+        <line num="89" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="93" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="98" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="99" count="3" type="stmt"/>
+        <line num="102" count="6" type="stmt"/>
+      </file>
       <file name="mapHelpers.ts" path="/home/ils15/dev/br-deforestation/src/lib/mapHelpers.ts">
         <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
-        <line num="24" count="136" type="stmt"/>
-        <line num="25" count="136" type="cond" truecount="2" falsecount="0"/>
-        <line num="26" count="128" type="stmt"/>
+        <line num="24" count="96" type="stmt"/>
+        <line num="25" count="96" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="88" type="stmt"/>
         <line num="28" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="29" count="2" type="stmt"/>
         <line num="31" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="32" count="1" type="stmt"/>
         <line num="34" count="5" type="stmt"/>
-        <line num="38" count="132" type="stmt"/>
-        <line num="42" count="15" type="stmt"/>
+        <line num="38" count="92" type="stmt"/>
+        <line num="42" count="13" type="stmt"/>
       </file>
     </package>
   </project>

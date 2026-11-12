@@ -1,6 +1,5 @@
 /* oxlint-disable react/only-export-components */
-import { createContext, useContext, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import { createContext } from 'react'
 
 export interface FilterState {
   yearMin: number
@@ -32,27 +31,3 @@ export interface FilterContextValue {
 }
 
 export const FilterContext = createContext<FilterContextValue | null>(null)
-
-export function useFilters(): FilterState {
-  const ctx = useContext(FilterContext)
-  if (!ctx) throw new Error('useFilters must be used within FilterProvider')
-  return ctx.filters
-}
-
-export function useFilterContext(): FilterContextValue {
-  const ctx = useContext(FilterContext)
-  if (!ctx) throw new Error('useFilterContext must be used within FilterProvider')
-  return ctx
-}
-
-export function FilterProvider({
-  children,
-  initial,
-}: {
-  children: ReactNode
-  initial?: Partial<FilterState>
-}) {
-  const [filters, setFilters] = useState<FilterState>(() => normalize(initial))
-  const value = useMemo(() => ({ filters, setFilters }), [filters])
-  return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>
-}

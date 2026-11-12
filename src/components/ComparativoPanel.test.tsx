@@ -19,4 +19,9 @@ describe('ComparativoPanel', () => {
     fireEvent.change(screen.getByTestId('horizon-select'), { target: { value: '5' } })
     expect(screen.getByTestId('horizon-select')).toHaveValue('5')
   })
+
+  it('renders empty state when no data', () => {
+    render(<ComparativoPanel filters={{ yearMin: 2030, yearMax: 2026, biome: 'Todos', states: [] }} />)
+    expect(screen.getAllByTestId('empty-state').length).toBeGreaterThan(0)
+  })
 })

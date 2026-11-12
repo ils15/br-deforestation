@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, waitFor, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import type { ReactNode } from 'react'
-import DeforestationMap, { DeforestationMapLazy } from './DeforestationMap'
+import DeforestationMap from './DeforestationMap'
 import { escapeHtml } from '../lib/mapHelpers'
 
 const layers: Array<{ bindTooltip: ReturnType<typeof vi.fn>; on: ReturnType<typeof vi.fn> }> = []
@@ -30,6 +30,7 @@ vi.mock('react-leaflet', () => ({
     })
     return <div data-testid="geojson">{data?.features?.length ?? 0}</div>
   },
+  useMap: () => ({ invalidateSize: vi.fn(), getContainer: () => document.createElement('div') }),
 }))
 
 const geoJson = {
@@ -92,10 +93,6 @@ describe('DeforestationMap', () => {
     expect(onClick).toHaveBeenCalledWith('<script>alert(1)</script>', 7)
   })
 
-  it('exposes lazy component', () => {
-    expect(DeforestationMapLazy).toBeDefined()
-  })
-
   it('escapeHtml helper escapes entities', () => {
     expect(escapeHtml(`<a href="x">'&`)).toBe('&lt;a href=&quot;x&quot;&gt;&#39;&amp;')
   })
@@ -125,8 +122,4 @@ describe('DeforestationMap', () => {
     expect(screen.getByTestId('map-container')).toBeInTheDocument()
   })
 
-  it('renders lazy wrapper', async () => {
-    render(<DeforestationMapLazy data={{}} year={2026} biome="amazonia" />)
-    await waitFor(() => expect(screen.getByTestId('map-container')).toBeInTheDocument())
-  })
 })

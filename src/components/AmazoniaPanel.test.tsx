@@ -8,4 +8,9 @@ describe('AmazoniaPanel', () => {
     render(<AmazoniaPanel filters={{ yearMin: 2006, yearMax: 2026, biome: 'Todos', states: ['Pará'] }} />)
     expect(screen.getByText(/Desmatamento — Amazônia/i)).toBeInTheDocument()
   })
+
+  it('renders empty state when no data', () => {
+    render(<AmazoniaPanel filters={{ yearMin: 2030, yearMax: 2026, biome: 'Todos', states: [] }} />)
+    expect(screen.getByTestId('empty-state')).toBeInTheDocument()
+  })
 })

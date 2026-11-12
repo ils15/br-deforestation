@@ -3,16 +3,16 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/CerradoPanel.tsx</title>
+    <title>Code coverage report for src/components/MatopibaPanel.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="../theme.js"></script>
+    <script src="../../theme.js"></script>
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -30,13 +30,13 @@
             </select>
         </label>
 
-        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> CerradoPanel.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> MatopibaPanel.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -57,7 +57,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -131,7 +131,18 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,25 +158,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,70 +206,74 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import { cerradoData, cerradoStates2026 } from '../data/deforestation'
+import { cerradoStates2026 } from '../data/deforestation'
 import type { FilterState } from './Filters'
+import {
+  chartColors,
+  gridProps,
+  axisProps,
+  tooltipProps,
+  chartHeights,
+  formatNumber,
+  formatTooltip,
+} from '../lib/chartTheme'
 &nbsp;
-export default function CerradoPanel({ filters }: { filters: FilterState }) {
+const MATOPIBA_STATES = ['Maranhão', 'Tocantins', 'Piauí', 'Bahia']
+const EMPTY_MESSAGE = 'Sem dados — Nenhum dado disponível para o período selecionado.'
+&nbsp;
+export default function MatopibaPanel({ filters }: { filters: FilterState }) {
   const prefersReducedMotion =
     typeof window !== 'undefined' &amp;&amp;
     typeof window.matchMedia === 'function' &amp;&amp;
 <span class="branch-2 cbranch-no" title="branch not covered" >    window.matchMedia('(prefers-reduced-motion: reduce)').matches</span>
-  const data = useMemo(
-    () =&gt; cerradoData.filter((d) =&gt; d.year &gt;= filters.yearMin &amp;&amp; d.year &lt;= filters.yearMax),
-    [filters.yearMin, filters.yearMax],
-  )
   const states = useMemo(() =&gt; {
-    const base = filters.states.length
-      ? cerradoStates2026.filter((s) =&gt; filters.states.includes(s.state))
-      : cerradoStates2026
-    return [...base].sort((a, b) =&gt; b.km2 - a.km2)
+    const base = cerradoStates2026.filter((s) =&gt; MATOPIBA_STATES.includes(s.state))
+    const filtered = filters.states.length ? base.filter((s) =&gt; filters.states.includes(s.state)) : base
+    return [...filtered].sort((a, b) =&gt; b.km2 - a.km2)
   }, [filters.states])
 &nbsp;
+  const total = states.reduce((s, d) =&gt; s + d.km2, 0)
+&nbsp;
   return (
-    &lt;div className="panel-cerrado"&gt;
-      &lt;section className="chart-card"&gt;
-        &lt;h2&gt;Desmatamento — Cerrado&lt;/h2&gt;
-        &lt;ResponsiveContainer width="100%" height={300}&gt;
-          &lt;BarChart data={data}&gt;
-            &lt;CartesianGrid strokeDasharray="3 3" /&gt;
-            &lt;XAxis dataKey="year" /&gt;
-            &lt;YAxis /&gt;
-            &lt;Tooltip /&gt;
-            &lt;Bar dataKey="km2" name="km²" fill="#f59e0b" isAnimationActive={!prefersReducedMotion} /&gt;
-          &lt;/BarChart&gt;
-        &lt;/ResponsiveContainer&gt;
-      &lt;/section&gt;
-      &lt;section className="chart-card"&gt;
-        &lt;h2&gt;Estados — Cerrado 2026&lt;/h2&gt;
-        &lt;ResponsiveContainer width="100%" height={420}&gt;
-          &lt;BarChart data={states} layout="vertical" margin={{ left: 20 }}&gt;
-            &lt;CartesianGrid strokeDasharray="3 3" /&gt;
-            &lt;XAxis type="number" /&gt;
-            &lt;YAxis type="category" dataKey="state" width={130} /&gt;
-            &lt;Tooltip /&gt;
-            &lt;Bar dataKey="km2" name="km²" fill="#f59e0b" isAnimationActive={!prefersReducedMotion} /&gt;
-          &lt;/BarChart&gt;
-        &lt;/ResponsiveContainer&gt;
+    &lt;div className="panel-matopiba"&gt;
+      &lt;section className="chart-card" aria-label="MATOPIBA estados do Cerrado 2026"&gt;
+        &lt;h2&gt;MATOPIBA — Estados do Cerrado 2026&lt;/h2&gt;
+        &lt;p className="source-note"&gt;Total: {formatNumber(Math.round(total))} km²&lt;/p&gt;
+        {states.length === 0 ? (
+          &lt;div data-testid="chart-empty"&gt;&lt;p className="chart-empty" data-testid="empty-state" role="status"&gt;{EMPTY_MESSAGE}&lt;/p&gt;&lt;/div&gt;
+        ) : (
+          &lt;div role="img" aria-label="Gráfico dos estados do MATOPIBA em km²"&gt;&lt;ResponsiveContainer width="100%" height={chartHeights.lg}&gt;
+            &lt;BarChart data={states} layout="vertical" margin={{ left: 20 }} role="img" aria-label="Gráfico dos estados do MATOPIBA em km²"&gt;
+              &lt;CartesianGrid {...gridProps} /&gt;
+              &lt;XAxis type="number" {...axisProps} tickFormatter={formatNumber} /&gt;
+              &lt;YAxis type="category" dataKey="state" width={130} {...axisProps} /&gt;
+              &lt;Tooltip {...tooltipProps} formatter={formatTooltip} /&gt;
+              &lt;Bar dataKey="km2" name="km²" fill={chartColors.cerrado} isAnimationActive={!prefersReducedMotion} /&gt;
+            &lt;/BarChart&gt;
+          &lt;/ResponsiveContainer&gt;
+          &lt;/div&gt;
+        )}
       &lt;/section&gt;
     &lt;/div&gt;
   )
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-12T16:52:21.116Z
+                at 2026-11-12T17:45:22.893Z
             </div>
-        <script src="../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     

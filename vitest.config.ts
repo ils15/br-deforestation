@@ -5,7 +5,7 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      include: ['src/lib/**', 'src/components/**'],
+      include: ['src/App.tsx', 'src/context/**', 'src/lib/**', 'src/components/**'],
       thresholds: {
         lines: 70,
         functions: 70,

@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
+import { useEffect, useMemo, useState } from 'react'
+import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet'
 import type { Feature, Geometry, GeoJsonObject } from 'geojson'
 import type { LatLngBoundsExpression, Layer, PathOptions } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -29,6 +29,31 @@ function colorFor(value: number, min: number, max: number): string {
     Math.max(0, Math.floor(t * (DEFOR_COLORS.length - 1))),
   )
   return DEFOR_COLORS[idx]
+}
+
+function ResizeInvalidator() {
+  const map = useMap()
+  useEffect(() => {
+    const invalidate = () => {
+      try { map.invalidateSize() } catch { /* ignore */ }
+    }
+    invalidate()
+    let ro: ResizeObserver | null = null
+    try {
+      const container = typeof map.getContainer === 'function' ? map.getContainer() : null
+      if (typeof ResizeObserver !== 'undefined' && container) {
+        ro = new ResizeObserver(() => invalidate())
+        ro.observe(container)
+      }
+    } catch { /* ignore */ }
+    const onResize = () => invalidate()
+    if (typeof window !== 'undefined') window.addEventListener('resize', onResize)
+    return () => {
+      ro?.disconnect()
+      if (typeof window !== 'undefined') window.removeEventListener('resize', onResize)
+    }
+  }, [map])
+  return null
 }
 
 export default function DeforestationMap({
@@ -149,19 +174,12 @@ export default function DeforestationMap({
         {geoData !== null && (
           <GeoJSON data={geoData} style={styleFn} onEachFeature={onEachFeature} />
         )}
+        <ResizeInvalidator />
       </MapContainer>
       <MapLegend min={min} max={maxRaw === 0 ? 1 : maxRaw} title={`${biome} ${year}`} />
     </div>
   )
 }
 
-const DeforestationMapLazyInner = lazy(() => import('./DeforestationMap'))
 
-export function DeforestationMapLazy(props: DeforestationMapProps) {
-  return (
-    <Suspense fallback={<div data-testid="deforestation-map-loading" />}>
-      <DeforestationMapLazyInner {...props} />
-    </Suspense>
-  )
-}
 

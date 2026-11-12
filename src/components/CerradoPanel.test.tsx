@@ -8,4 +8,9 @@ describe('CerradoPanel', () => {
     render(<CerradoPanel filters={{ yearMin: 2006, yearMax: 2026, biome: 'Todos', states: ['Bahia'] }} />)
     expect(screen.getByText(/Desmatamento — Cerrado/i)).toBeInTheDocument()
   })
+
+  it('renders empty state when no data', () => {
+    render(<CerradoPanel filters={{ yearMin: 2030, yearMax: 2026, biome: 'Todos', states: [] }} />)
+    expect(screen.getByTestId('empty-state')).toBeInTheDocument()
+  })
 })
