@@ -36,14 +36,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/32</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -57,7 +57,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
@@ -204,7 +204,16 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +248,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -356,6 +370,8 @@ export interface FiltersProps {
   biomes?: string[]
   states?: string[]
   className?: string
+  idPrefix?: string
+  testId?: string
 }
 &nbsp;
 const DEFAULT_BIOMES = ['Todos', 'Amazônia', 'Cerrado', 'MATOPIBA']
@@ -373,6 +389,11 @@ export default function Filters(props: FiltersProps) {
   const controlledSource = props.value ?? props.filters ?? ctx?.filters ?? null
   const [internal, setInternal] = useState&lt;FilterState&gt;(() =&gt; normalize(controlledSource))
   const current = controlledSource ? normalize(controlledSource) : internal
+  const idPrefix = props.idPrefix ?? ''
+  const minId = `${idPrefix}year-min`
+  const maxId = `${idPrefix}year-max`
+  const biomeId = `${idPrefix}biome-select`
+  const statesId = `${idPrefix}states-select`
 &nbsp;
   const years = props.years ?? defaultYears
   const biomes = props.biomes ?? DEFAULT_BIOMES
@@ -394,14 +415,14 @@ export default function Filters(props: FiltersProps) {
   return (
     &lt;div
       className={`filters ${props.className ?? ''}`.trim()}
-      data-testid="filters"
+      data-testid={props.testId ?? 'filters'}
       role="group"
       aria-label="Filtros"
     &gt;
-      &lt;label htmlFor="year-min"&gt;
+      &lt;label htmlFor={minId}&gt;
         Ano mínimo
         &lt;input
-          id="year-min"
+          id={minId}
           name="yearMin"
           data-testid="year-min"
           type="number"
@@ -411,10 +432,10 @@ export default function Filters(props: FiltersProps) {
           onChange={(e) =&gt; patch({ yearMin: Number(e.target.value) })}
         /&gt;
       &lt;/label&gt;
-      &lt;label htmlFor="year-max"&gt;
+      &lt;label htmlFor={maxId}&gt;
         Ano máximo
         &lt;input
-          id="year-max"
+          id={maxId}
           name="yearMax"
           data-testid="year-max"
           type="number"
@@ -424,10 +445,10 @@ export default function Filters(props: FiltersProps) {
           onChange={(e) =&gt; patch({ yearMax: Number(e.target.value) })}
         /&gt;
       &lt;/label&gt;
-      &lt;label htmlFor="biome-select"&gt;
+      &lt;label htmlFor={biomeId}&gt;
         Bioma
         &lt;select
-          id="biome-select"
+          id={biomeId}
           name="biome"
           data-testid="biome-select"
           value={current.biome}
@@ -440,10 +461,10 @@ export default function Filters(props: FiltersProps) {
           ))}
         &lt;/select&gt;
       &lt;/label&gt;
-      &lt;label htmlFor="states-select"&gt;
+      &lt;label htmlFor={statesId}&gt;
         Estados
         &lt;select
-          id="states-select"
+          id={statesId}
           name="states"
           data-testid="states-select"
           multiple
@@ -471,7 +492,7 @@ export { Filters }</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-12T17:45:22.893Z
+                at 2026-11-12T19:59:39.975Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

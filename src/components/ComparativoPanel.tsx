@@ -4,6 +4,7 @@ import {
   Line,
   ScatterChart,
   Scatter,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -15,9 +16,13 @@ import { amazoniaData, cerradoData } from '../data/deforestation'
 import {
   yoyPct,
   movingAverage,
-  forecast,
   pearsonCorrelation,
 } from '../lib/analytics'
+import {
+  timeSeriesForecast,
+  backtest,
+  forecastMethods,
+} from '../lib/forecasting'
 import type { FilterState } from './Filters'
 import {
   chartColors,
@@ -36,6 +41,7 @@ const EMPTY_MESSAGE = 'Sem dados — Nenhum dado disponível para o período sel
 
 export default function ComparativoPanel({ filters }: { filters: FilterState }) {
   const [horizon, setHorizon] = useState(3)
+  const [method, setMethod] = useState<'holt-damped' | 'ets-aan' | 'arima' | 'auto'>('auto')
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     typeof window.matchMedia === 'function' &&
@@ -71,14 +77,19 @@ export default function ComparativoPanel({ filters }: { filters: FilterState }) 
 
   const forecastData = useMemo(() => {
     const series = amazonia.map((d) => d.km2)
-    const vals = forecast(series, horizon)
+    const result = timeSeriesForecast(series, horizon, method)
     const lastYear = amazonia.length ? amazonia[amazonia.length - 1].year : 2026
-    return vals.map((v, k) => ({ year: lastYear + 1 + k, forecast: v }))
-  }, [amazonia, horizon])
+    return result.forecast.map((v, k) => ({
+      year: lastYear + 1 + k,
+      forecast: v,
+      lower: result.lower[k],
+      upper: result.upper[k],
+    }))
+  }, [amazonia, horizon, method])
 
   const combinedForecast = useMemo(() => {
-    const hist = amazonia.map((d) => ({ year: d.year, km2: d.km2, forecast: null as number | null }))
-    const proj = forecastData.map((d) => ({ year: d.year, km2: null as number | null, forecast: d.forecast }))
+    const hist = amazonia.map((d) => ({ year: d.year, km2: d.km2, forecast: null as number | null, lower: undefined, upper: undefined, range: undefined }))
+    const proj = forecastData.map((d) => ({ year: d.year, km2: null as number | null, forecast: d.forecast, lower: d.lower, upper: d.upper, range: [d.lower, d.upper] }))
     return [...hist, ...proj]
   }, [amazonia, forecastData])
 
@@ -96,6 +107,15 @@ export default function ComparativoPanel({ filters }: { filters: FilterState }) 
     const ys = scatterData.map((d) => d.y)
     return pearsonCorrelation(xs, ys)
   }, [scatterData])
+
+  const backtestResult = useMemo(() => {
+    const series = amazonia.map((d) => d.km2)
+    const holdout = 1
+    if (series.length <= holdout + 5) {
+      return null
+    }
+    return backtest(series, holdout, method)
+  }, [amazonia, method])
 
   return (
     <div className="panel-comparativo">
@@ -167,6 +187,21 @@ export default function ComparativoPanel({ filters }: { filters: FilterState }) 
               ))}
             </select>
           </label>
+          <label htmlFor="method-select">
+            Método
+            <select
+              id="method-select"
+              data-testid="method-select"
+              value={method}
+              onChange={(e) => setMethod(e.target.value as typeof method)}
+            >
+              {forecastMethods.map((m) => (
+                <option key={m.key} value={m.key}>
+                  {m.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
         {combinedForecast.length === 0 ? (
           <div data-testid="chart-empty"><p className="chart-empty" data-testid="empty-state" role="status">{EMPTY_MESSAGE}</p></div>
@@ -195,10 +230,35 @@ export default function ComparativoPanel({ filters }: { filters: FilterState }) 
                 dot={{ r: 3 }}
                 isAnimationActive={!prefersReducedMotion}
               />
+              <Area
+                type="monotone"
+                dataKey="range"
+                name="Intervalo de previsão"
+                fill={chartColors.projection}
+                fillOpacity={0.2}
+                stroke="none"
+                isAnimationActive={!prefersReducedMotion}
+              />
             </LineChart>
           </ResponsiveContainer>
           </div>
         )}
+        {backtestResult ? (
+          <div className="kpi-grid" aria-label="Métricas de backtest">
+            <div className="kpi" data-testid="backtest-mae">
+              <div className="kpi-label">MAE (backtest)</div>
+              <div className="kpi-value">{backtestResult.mae}</div>
+            </div>
+            <div className="kpi" data-testid="backtest-rmse">
+              <div className="kpi-label">RMSE (backtest)</div>
+              <div className="kpi-value">{backtestResult.rmse}</div>
+            </div>
+            <div className="kpi" data-testid="backtest-mape">
+              <div className="kpi-label">MAPE (backtest)</div>
+              <div className="kpi-value">{backtestResult.mape}%</div>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <section className="chart-card" data-testid="correlation-chart" aria-label="Correlação Amazônia Cerrado">

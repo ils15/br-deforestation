@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 export interface SkipLinkProps {
   targetId?: string
   label?: string
@@ -9,6 +11,15 @@ export default function SkipLink({
   label = 'Skip to main content',
   className,
 }: SkipLinkProps) {
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    const target = document.getElementById(targetId)
+    if (target) {
+      e.preventDefault()
+      target.focus()
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [targetId])
+
   return (
     <a
       href={`#${targetId}`}
@@ -17,6 +28,7 @@ export default function SkipLink({
         'sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-brand focus:px-3 focus:py-2 focus:text-brand-foreground focus:shadow-lg'
       }
       data-testid="skip-link"
+      onClick={handleClick}
     >
       {label}
     </a>

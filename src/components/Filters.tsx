@@ -20,6 +20,8 @@ export interface FiltersProps {
   biomes?: string[]
   states?: string[]
   className?: string
+  idPrefix?: string
+  testId?: string
 }
 
 const DEFAULT_BIOMES = ['Todos', 'Amazônia', 'Cerrado', 'MATOPIBA']
@@ -37,6 +39,11 @@ export default function Filters(props: FiltersProps) {
   const controlledSource = props.value ?? props.filters ?? ctx?.filters ?? null
   const [internal, setInternal] = useState<FilterState>(() => normalize(controlledSource))
   const current = controlledSource ? normalize(controlledSource) : internal
+  const idPrefix = props.idPrefix ?? ''
+  const minId = `${idPrefix}year-min`
+  const maxId = `${idPrefix}year-max`
+  const biomeId = `${idPrefix}biome-select`
+  const statesId = `${idPrefix}states-select`
 
   const years = props.years ?? defaultYears
   const biomes = props.biomes ?? DEFAULT_BIOMES
@@ -58,14 +65,14 @@ export default function Filters(props: FiltersProps) {
   return (
     <div
       className={`filters ${props.className ?? ''}`.trim()}
-      data-testid="filters"
+      data-testid={props.testId ?? 'filters'}
       role="group"
       aria-label="Filtros"
     >
-      <label htmlFor="year-min">
+      <label htmlFor={minId}>
         Ano mínimo
         <input
-          id="year-min"
+          id={minId}
           name="yearMin"
           data-testid="year-min"
           type="number"
@@ -75,10 +82,10 @@ export default function Filters(props: FiltersProps) {
           onChange={(e) => patch({ yearMin: Number(e.target.value) })}
         />
       </label>
-      <label htmlFor="year-max">
+      <label htmlFor={maxId}>
         Ano máximo
         <input
-          id="year-max"
+          id={maxId}
           name="yearMax"
           data-testid="year-max"
           type="number"
@@ -88,10 +95,10 @@ export default function Filters(props: FiltersProps) {
           onChange={(e) => patch({ yearMax: Number(e.target.value) })}
         />
       </label>
-      <label htmlFor="biome-select">
+      <label htmlFor={biomeId}>
         Bioma
         <select
-          id="biome-select"
+          id={biomeId}
           name="biome"
           data-testid="biome-select"
           value={current.biome}
@@ -104,10 +111,10 @@ export default function Filters(props: FiltersProps) {
           ))}
         </select>
       </label>
-      <label htmlFor="states-select">
+      <label htmlFor={statesId}>
         Estados
         <select
-          id="states-select"
+          id={statesId}
           name="states"
           data-testid="states-select"
           multiple

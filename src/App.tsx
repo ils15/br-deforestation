@@ -1,6 +1,7 @@
 import { Suspense, lazy, useMemo, useRef, useState } from 'react'
 import { amazoniaData, cerradoData, amazoniaStates2026, cerradoStates2026 } from './data/deforestation'
 import Filters, { type FilterState } from './components/Filters'
+import { normalize } from './context/FilterContext'
 import KpiGrid from './components/KpiGrid'
 import AmazoniaPanel from './components/AmazoniaPanel'
 import CerradoPanel from './components/CerradoPanel'
@@ -9,11 +10,19 @@ import ComparativoPanel from './components/ComparativoPanel'
 import NavBar from './components/NavBar'
 import MobileDrawer from './components/MobileDrawer'
 import SkipLink from './components/SkipLink'
+import Sidebar, { type SidebarGroup } from './components/Sidebar'
 import { useMapData } from './hooks/useMapData'
 
 const DeforestationMap = lazy(() => import('./components/DeforestationMap'))
 
 const TABS = ['Amazônia', 'Cerrado', 'MATOPIBA', 'Comparativo']
+
+const SIDEBAR_GROUPS: SidebarGroup[] = [
+  {
+    label: 'Biomas',
+    items: TABS.map((t) => ({ label: t, key: t })),
+  },
+]
 
 const defaultFilters: FilterState = {
   yearMin: 2006,
@@ -25,11 +34,33 @@ const defaultFilters: FilterState = {
   yearRange: [2006, 2026],
 }
 
+const FILTERS_STORAGE_KEY = 'br-deforestation:filters'
+
+function loadFilters(): FilterState {
+  try {
+    const raw = localStorage.getItem(FILTERS_STORAGE_KEY)
+    if (!raw) return defaultFilters
+    const parsed = JSON.parse(raw) as Partial<FilterState>
+    return normalize(parsed)
+  } catch {
+    return defaultFilters
+  }
+}
+
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [filters, setFilters] = useState<FilterState>(defaultFilters)
+  const [filters, setFilters] = useState<FilterState>(loadFilters())
   const [drawerOpen, setDrawerOpen] = useState(false)
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
+
+  function updateFilters(next: FilterState) {
+    setFilters(next)
+    try {
+      localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(next))
+    } catch {
+      // ignore storage errors
+    }
+  }
 
   const filteredAmazonia = useMemo(
     () => amazoniaData.filter((d) => d.year >= filters.yearMin && d.year <= filters.yearMax),
@@ -59,8 +90,7 @@ export default function App() {
 
   const mapData = useMapData(filters)
   const mapYear = filters.yearMax || 2026
-  const mapBiome =
-    filters.biome === 'Cerrado' || filters.biome === 'MATOPIBA' ? 'Cerrado' : 'Amazônia'
+  const mapBiome = filters.biome === 'Cerrado' || filters.biome === 'MATOPIBA' ? 'Cerrado' : 'Amazônia'
 
   const navLinks = TABS.map((t, i) => ({
     label: t,
@@ -97,6 +127,16 @@ export default function App() {
     }
   })()
 
+  const sidebarContent = (
+    <Sidebar
+      activeKey={TABS[activeIndex]}
+      onSelect={(key) => setActiveIndex(TABS.indexOf(key))}
+      groups={SIDEBAR_GROUPS}
+      className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-2"
+      footer={<Filters value={filters} onChange={updateFilters} />}
+  />
+  )
+
   return (
     <div className="min-h-screen bg-surface-base text-text">
       <SkipLink />
@@ -118,59 +158,69 @@ export default function App() {
 
         <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Menu">
           <nav aria-label="Navegação mobile" className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {TABS.map((t, i) => (
               <button
-                key={link.label}
+                key={t}
                 type="button"
-                className="rounded-md px-3 py-2 text-left text-sm text-text transition-colors hover:bg-surface hover:text-text-heading focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                onClick={link.onClick}
+                onClick={() => {
+                  setActiveIndex(i)
+                  setDrawerOpen(false)
+                }}
+                aria-current={i === activeIndex ? 'page' : undefined}
+                className={`flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+                  i === activeIndex
+                    ? 'bg-brand text-brand-foreground'
+                    : 'text-text hover:bg-surface-base'
+                }`}
+                data-testid={`mobile-nav-${i}`}
               >
-                {link.label}
+                {t}
               </button>
             ))}
           </nav>
+          <div className="mt-2 border-t border-border pt-4" data-testid="mobile-filters">
+            <Filters value={filters} onChange={updateFilters} idPrefix="mobile-" testId="filters-mobile" />
+          </div>
         </MobileDrawer>
-
-        <div data-testid="filter-toolbar" className="mb-6">
-          <Filters value={filters} onChange={setFilters} />
-        </div>
 
         <section data-testid="kpi-strip" className="mb-6">
           <KpiGrid items={kpiItems} />
         </section>
 
-        <div data-testid="main-grid" className="grid gap-6 lg:grid-cols-2">
-          <div className="flex flex-col gap-6">
-            <div
-              role="tablist"
-              aria-label="Biomas"
-              className="flex flex-wrap justify-center gap-2 rounded-full border border-border bg-surface p-1"
-            >
-              {TABS.map((t, i) => (
-                <button
-                  key={t}
-                  ref={(el) => {
-                    tabRefs.current[i] = el
-                  }}
-                  role="tab"
-                  id={`tab-${i}`}
-                  aria-selected={i === activeIndex}
-                  {...(i === activeIndex ? { 'aria-controls': `panel-${i}` } : {})}
-                  tabIndex={i === activeIndex ? 0 : -1}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                    i === activeIndex
-                      ? 'bg-brand text-brand-foreground'
-                      : 'text-text hover:bg-surface-base'
-                  }`}
-                  onClick={() => setActiveIndex(i)}
-                  onKeyDown={(e) => handleKeyDown(e, i)}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
+        <div data-testid="main-grid" className="grid gap-6 lg:grid-cols-[260px_1fr]">
+          <aside data-testid="sidebar-panel" className="hidden lg:block">
+            {sidebarContent}
+          </aside>
 
-            <main id="main-content" data-testid="main-content" tabIndex={-1} className="outline-none">
+          <div className="flex flex-col gap-6 lg:flex-row lg:col-span-1">
+            <main id="main-content" data-testid="main-content" tabIndex={-1}>
+              <div
+                role="tablist"
+                aria-label="Biomas"
+                className="flex flex-wrap justify-center gap-2 rounded-full border border-border bg-surface p-1 mb-6"
+              >
+                {TABS.map((t, i) => (
+                  <button
+                    key={t}
+                    ref={(el) => {
+                      tabRefs.current[i] = el
+                    }}
+                    role="tab"
+                    aria-selected={i === activeIndex}
+                    id={`tab-${i}`}
+                    tabIndex={i === activeIndex ? 0 : -1}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+                      i === activeIndex
+                        ? 'bg-brand text-brand-foreground'
+                        : 'text-text hover:bg-surface-base'
+                    }`}
+                    onClick={() => setActiveIndex(i)}
+                    onKeyDown={(e) => handleKeyDown(e, i)}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
               <div
                 role="tabpanel"
                 id={`panel-${activeIndex}`}
@@ -181,13 +231,13 @@ export default function App() {
                 {panel}
               </div>
             </main>
-          </div>
 
-          <aside data-testid="map-panel" className="min-h-[320px]">
-            <Suspense fallback={<div data-testid="deforestation-map-loading" />}>
-              <DeforestationMap data={mapData} year={mapYear} biome={mapBiome} />
-            </Suspense>
-          </aside>
+            <aside data-testid="map-panel" className="min-h-[320px] lg:col-span-1">
+              <Suspense fallback={<div data-testid="deforestation-map-loading" />}>
+                <DeforestationMap data={mapData} year={mapYear} biome={mapBiome} />
+              </Suspense>
+            </aside>
+          </div>
         </div>
 
         <footer data-testid="footer" className="mt-8 border-t border-border pt-4 text-center text-xs text-text-muted">
