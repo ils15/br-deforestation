@@ -74,44 +74,47 @@ export default function MobileDrawer({
     }
   }, [openState])
 
-  if (!openState) return null
-
   return (
     <div
       id="mobile-drawer"
       className="fixed inset-0 z-50 lg:hidden"
       data-testid="mobile-drawer"
+      hidden={!openState}
       role="dialog"
-      aria-modal="true"
+      aria-modal={openState ? true : undefined}
       aria-label={title}
     >
-      <button
-        type="button"
-        aria-label="Fechar menu"
-        className="absolute inset-0 bg-black/60"
-        onClick={onClose}
-        data-testid="drawer-backdrop"
-      />
-      <aside
-        ref={drawerRef}
-        tabIndex={-1}
-        className={`absolute left-0 top-0 flex h-full w-72 max-w-[85vw] flex-col gap-4 bg-surface p-6 shadow-lg transition-transform duration-200 ${className ?? ''}`.trim()}
-        data-testid="drawer-panel"
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-text-heading">{title}</h2>
+      {openState && (
+        <>
           <button
             type="button"
             aria-label="Fechar menu"
-            className="rounded-md p-2 text-text hover:bg-surface-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className="absolute inset-0 bg-black/60"
             onClick={onClose}
-            data-testid="drawer-close"
+            data-testid="drawer-backdrop"
+          />
+          <aside
+            ref={drawerRef}
+            tabIndex={-1}
+            className={`absolute left-0 top-0 flex h-full w-72 max-w-[85vw] flex-col gap-4 bg-surface p-6 shadow-lg transition-transform duration-200 ${className ?? ''}`.trim()}
+            data-testid="drawer-panel"
           >
-            ✕
-          </button>
-        </div>
-        <div className="flex flex-col gap-2">{children}</div>
-      </aside>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-text-heading">{title}</h2>
+              <button
+                type="button"
+                aria-label="Fechar menu"
+                className="rounded-md p-2 text-text hover:bg-surface-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                onClick={onClose}
+                data-testid="drawer-close"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex flex-col gap-2">{children}</div>
+          </aside>
+        </>
+      )}
     </div>
   )
 }

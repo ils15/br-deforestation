@@ -19,6 +19,7 @@ export interface SidebarProps {
   sections?: SidebarSection[]
   groups?: SidebarSection[]
   className?: string
+  idPrefix?: string
   footer?: ReactNode
 }
 
@@ -71,6 +72,7 @@ export default function Sidebar({
   sections = DEFAULT_SECTIONS,
   groups,
   className,
+  idPrefix = '',
   footer,
 }: SidebarProps) {
   const effectiveSections = groups ?? sections
@@ -153,13 +155,14 @@ export default function Sidebar({
   return (
     <aside
       ref={asideRef}
-      aria-label="Navegação lateral"
+      aria-label="Navegação e filtros"
       data-testid="sidebar"
       className={`flex flex-col gap-2 rounded-lg border border-border bg-surface p-2 ${className ?? ''}`.trim()}
     >
-      {sections.map((section) => {
+      <nav aria-label="Navegação lateral" className="flex flex-col gap-2">
+        {effectiveSections.map((section) => {
         const isOpen = !collapsed.includes(section.label)
-        const headerId = `sidebar-section-${section.label}`
+        const headerId = `${idPrefix}sidebar-section-${section.label}`
         const testSlug = section.label.replace(/\s+/g, '-')
         return (
           <section key={section.label} className="flex flex-col gap-1">
@@ -245,7 +248,8 @@ export default function Sidebar({
             )}
           </section>
         )
-      })}
+        })}
+      </nav>
       {footer && (
         <div className="mt-auto border-t border-border pt-3" data-testid="sidebar-footer">
           {footer}

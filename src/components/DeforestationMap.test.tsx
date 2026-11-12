@@ -6,6 +6,7 @@ import DeforestationMap from './DeforestationMap'
 import { escapeHtml } from '../lib/mapHelpers'
 
 const layers: Array<{ bindTooltip: ReturnType<typeof vi.fn>; on: ReturnType<typeof vi.fn> }> = []
+const paths: HTMLElement[] = []
 
 vi.mock('leaflet/dist/leaflet.css', () => ({}))
 
@@ -23,6 +24,7 @@ vi.mock('react-leaflet', () => ({
   GeoJSON: ({ data, style, onEachFeature }: { data?: { features?: unknown[] }; style?: (f: unknown) => unknown; onEachFeature?: (f: unknown, l: unknown) => void }) => {
     data?.features?.forEach((f) => {
       const pathEl = document.createElement('path')
+      paths.push(pathEl)
       const layer = { bindTooltip: vi.fn(), on: vi.fn(), getElement: vi.fn(() => pathEl), setAttribute: vi.fn(), _path: pathEl }
       layers.push(layer)
       if (typeof style === 'function') style(f)
@@ -41,6 +43,7 @@ const geoJson = {
 
 beforeEach(() => {
   layers.length = 0
+  paths.length = 0
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ json: async () => geoJson }))
 })
 afterEach(() => cleanup())
@@ -87,10 +90,24 @@ describe('DeforestationMap', () => {
     render(<DeforestationMap data={data} year={2026} biome="amazonia" onStateClick={onClick} />)
     await waitFor(() => expect(layers.length).toBe(1))
     const onMock = layers[0].on
+    expect(paths[0]).toHaveAttribute('role', 'button')
+    expect(paths[0]).toHaveAttribute('tabindex', '0')
+    expect(paths[0]).toHaveAttribute('aria-label', expect.stringContaining('7 km²'))
+    expect(paths[0]).toHaveAccessibleName(/Ver detalhes de desmatamento em .*7 km²/)
     expect(onMock).toHaveBeenCalledWith('click', expect.any(Function))
     const handler = onMock.mock.calls.find((c) => c[0] === 'click')?.[1] as () => void
     handler()
     expect(onClick).toHaveBeenCalledWith('<script>alert(1)</script>', 7)
+  })
+
+  it('does not expose polygons as buttons when no action is supplied', async () => {
+    render(<DeforestationMap data={{ 'Pará': 5 }} year={2026} biome="Amazônia" />)
+    await waitFor(() => expect(layers.length).toBe(1))
+
+    expect(paths[0]).not.toHaveAttribute('role')
+    expect(paths[0]).not.toHaveAttribute('tabindex')
+    expect(paths[0]).not.toHaveAttribute('aria-label')
+    expect(layers[0].on).not.toHaveBeenCalled()
   })
 
   it('escapeHtml helper escapes entities', () => {

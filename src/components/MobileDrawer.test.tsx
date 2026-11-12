@@ -6,9 +6,15 @@ import MobileDrawer from './MobileDrawer'
 afterEach(() => cleanup())
 
 describe('MobileDrawer', () => {
-  it('renders nothing when closed', () => {
-    render(<MobileDrawer open={false} onClose={() => {}} />)
-    expect(screen.queryByTestId('mobile-drawer')).not.toBeInTheDocument()
+  it('keeps a hidden drawer root when closed', () => {
+    render(
+      <MobileDrawer open={false} onClose={() => {}}>
+        <button type="button">Hidden drawer action</button>
+      </MobileDrawer>,
+    )
+    expect(screen.getByTestId('mobile-drawer')).toHaveAttribute('hidden')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.queryByText('Hidden drawer action')).not.toBeInTheDocument()
   })
 
   it('renders drawer when open', () => {

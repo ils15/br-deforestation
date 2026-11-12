@@ -1,5 +1,6 @@
 import { Suspense, lazy, useMemo, useRef, useState } from 'react'
-import { amazoniaData, cerradoData, amazoniaStates2026, cerradoStates2026 } from './data/deforestation'
+import type { ReactNode } from 'react'
+import { amazoniaData, cerradoData, MAP_DATA_YEAR } from './data/deforestation'
 import Filters, { type FilterState } from './components/Filters'
 import { normalize } from './context/FilterContext'
 import KpiGrid from './components/KpiGrid'
@@ -7,7 +8,6 @@ import AmazoniaPanel from './components/AmazoniaPanel'
 import CerradoPanel from './components/CerradoPanel'
 import MatopibaPanel from './components/MatopibaPanel'
 import ComparativoPanel from './components/ComparativoPanel'
-import NavBar from './components/NavBar'
 import MobileDrawer from './components/MobileDrawer'
 import SkipLink from './components/SkipLink'
 import Sidebar, { type SidebarGroup } from './components/Sidebar'
@@ -74,31 +74,19 @@ export default function App() {
   const kpiItems = useMemo(() => {
     const lastA = filteredAmazonia[filteredAmazonia.length - 1] ?? amazoniaData[amazoniaData.length - 1]
     const lastC = filteredCerrado[filteredCerrado.length - 1] ?? cerradoData[cerradoData.length - 1]
-    const peakA = amazoniaData.reduce((a, b) => (b.km2 > a.km2 ? b : a), amazoniaData[0])
     const totalA = filteredAmazonia.reduce((s, d) => s + d.km2, 0)
     const totalC = filteredCerrado.reduce((s, d) => s + d.km2, 0)
     return [
-      { label: 'Amazônia (último ano)', value: Math.round(lastA.km2), unit: 'km²' },
-      { label: 'Cerrado (último ano)', value: Math.round(lastC.km2), unit: 'km²' },
-      { label: 'Pico Amazônia', value: Math.round(peakA.km2), unit: 'km²' },
-      { label: 'Total Amazônia (filtrado)', value: Math.round(totalA), unit: 'km²' },
-      { label: 'Total Cerrado (filtrado)', value: Math.round(totalC), unit: 'km²' },
-      { label: 'Estados Amazônia', value: amazoniaStates2026.length },
-      { label: 'Estados Cerrado', value: cerradoStates2026.length },
+      { label: 'Amazônia · último ano', value: Math.round(lastA.km2), unit: 'km²' },
+      { label: 'Cerrado · último ano', value: Math.round(lastC.km2), unit: 'km²' },
+      { label: 'Total Amazônia · período', value: Math.round(totalA), unit: 'km²' },
+      { label: 'Total Cerrado · período', value: Math.round(totalC), unit: 'km²' },
     ]
   }, [filteredAmazonia, filteredCerrado])
 
   const mapData = useMapData(filters)
-  const mapYear = filters.yearMax || 2026
+  const mapYear = MAP_DATA_YEAR
   const mapBiome = filters.biome === 'Cerrado' || filters.biome === 'MATOPIBA' ? 'Cerrado' : 'Amazônia'
-
-  const navLinks = TABS.map((t, i) => ({
-    label: t,
-    onClick: () => {
-      setActiveIndex(i)
-      setDrawerOpen(false)
-    },
-  }))
 
   function handleKeyDown(e: React.KeyboardEvent, index: number) {
     let next = index
@@ -127,117 +115,124 @@ export default function App() {
     }
   })()
 
-  const sidebarContent = (
-    <Sidebar
-      activeKey={TABS[activeIndex]}
-      onSelect={(key) => setActiveIndex(TABS.indexOf(key))}
-      groups={SIDEBAR_GROUPS}
-      className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-2"
-      footer={<Filters value={filters} onChange={updateFilters} />}
-  />
-  )
+  function renderSidebar(idPrefix: string, testId: string): ReactNode {
+    return (
+      <Sidebar
+        activeKey={TABS[activeIndex]}
+        onNavigate={(key) => {
+          setActiveIndex(TABS.indexOf(key))
+          setDrawerOpen(false)
+        }}
+        groups={SIDEBAR_GROUPS}
+        className="dashboard-sidebar"
+        idPrefix={`${idPrefix}nav-`}
+        footer={
+          <div className="space-y-3">
+            <h2 className="text-sm font-semibold text-text-heading">Filtros</h2>
+            <Filters
+              value={filters}
+              onChange={updateFilters}
+              idPrefix={idPrefix}
+              testId={testId}
+            />
+          </div>
+        }
+      />
+    )
+  }
 
   return (
     <div className="min-h-screen bg-surface-base text-text">
       <SkipLink />
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
-        <header data-testid="app-header" className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-text-heading sm:text-3xl">Desmatamento — Brasil</h1>
-            <p className="text-sm text-text-muted">Painel de métricas de desmatamento</p>
+      <div className="mx-auto max-w-[1600px] px-4 py-5 sm:px-6 lg:px-8">
+        <header data-testid="app-header" className="mb-6 flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">Monitoramento florestal</p>
+            <h1 className="text-2xl font-bold tracking-tight text-text-heading sm:text-3xl">Desmatamento — Brasil</h1>
+            <p className="mt-1 text-sm text-text-muted">Painel de métricas de desmatamento</p>
           </div>
-          <NavBar
-            brand="Desmatamento — Brasil"
-            links={navLinks}
-            onMenuClick={() => setDrawerOpen(true)}
-            onClose={() => setDrawerOpen(false)}
-            menuOpen={drawerOpen}
-            className="w-full sm:w-auto"
-          />
+          <button
+            type="button"
+            data-testid="menu-button"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-surface text-text-heading transition-colors hover:bg-surface-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand lg:hidden"
+            aria-label={drawerOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={drawerOpen}
+            aria-controls="mobile-drawer"
+            onClick={() => setDrawerOpen((open) => !open)}
+          >
+            <span aria-hidden="true">{drawerOpen ? '✕' : '☰'}</span>
+          </button>
         </header>
 
-        <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Menu">
-          <nav aria-label="Navegação mobile" className="flex flex-col gap-1">
-            {TABS.map((t, i) => (
-              <button
-                key={t}
-                type="button"
-                onClick={() => {
-                  setActiveIndex(i)
-                  setDrawerOpen(false)
-                }}
-                aria-current={i === activeIndex ? 'page' : undefined}
-                className={`flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                  i === activeIndex
-                    ? 'bg-brand text-brand-foreground'
-                    : 'text-text hover:bg-surface-base'
-                }`}
-                data-testid={`mobile-nav-${i}`}
-              >
-                {t}
-              </button>
-            ))}
-          </nav>
-          <div className="mt-2 border-t border-border pt-4" data-testid="mobile-filters">
-            <Filters value={filters} onChange={updateFilters} idPrefix="mobile-" testId="filters-mobile" />
-          </div>
+        <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Navegação e filtros">
+          {renderSidebar('mobile-', 'filters-mobile')}
         </MobileDrawer>
 
         <section data-testid="kpi-strip" className="mb-6">
           <KpiGrid items={kpiItems} />
         </section>
 
-        <div data-testid="main-grid" className="grid gap-6 lg:grid-cols-[260px_1fr]">
-          <aside data-testid="sidebar-panel" className="hidden lg:block">
-            {sidebarContent}
-          </aside>
+        <div data-testid="main-grid" className="grid min-w-0 gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
+          <div data-testid="sidebar-panel" className="hidden min-w-0 lg:block">
+            {renderSidebar('desktop-', 'filters-desktop')}
+          </div>
 
-          <div className="flex flex-col gap-6 lg:flex-row lg:col-span-1">
-            <main id="main-content" data-testid="main-content" tabIndex={-1}>
-              <div
-                role="tablist"
-                aria-label="Biomas"
-                className="flex flex-wrap justify-center gap-2 rounded-full border border-border bg-surface p-1 mb-6"
-              >
-                {TABS.map((t, i) => (
-                  <button
-                    key={t}
-                    ref={(el) => {
-                      tabRefs.current[i] = el
-                    }}
-                    role="tab"
-                    aria-selected={i === activeIndex}
-                    id={`tab-${i}`}
-                    tabIndex={i === activeIndex ? 0 : -1}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                      i === activeIndex
-                        ? 'bg-brand text-brand-foreground'
-                        : 'text-text hover:bg-surface-base'
-                    }`}
-                    onClick={() => setActiveIndex(i)}
-                    onKeyDown={(e) => handleKeyDown(e, i)}
+          <main id="main-content" data-testid="main-content" className="min-w-0" tabIndex={-1}>
+            <div className="dashboard-content-grid">
+              <div className="min-w-0">
+                <div
+                  role="tablist"
+                  aria-label="Biomas"
+                  className="mb-5 flex flex-wrap gap-2 rounded-xl border border-border bg-surface p-1.5"
+                >
+                  {TABS.map((t, i) => (
+                    <button
+                      key={t}
+                      ref={(el) => {
+                        tabRefs.current[i] = el
+                      }}
+                      role="tab"
+                      aria-selected={i === activeIndex}
+                      id={`tab-${i}`}
+                      aria-controls={`panel-${i}`}
+                      tabIndex={i === activeIndex ? 0 : -1}
+                      className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+                        i === activeIndex
+                          ? 'bg-brand text-brand-foreground'
+                          : 'text-text hover:bg-surface-base'
+                      }`}
+                      onClick={() => setActiveIndex(i)}
+                      onKeyDown={(e) => handleKeyDown(e, i)}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+                {TABS.map((tab, i) => (
+                  <div
+                    key={tab}
+                    role="tabpanel"
+                    id={`panel-${i}`}
+                    aria-labelledby={`tab-${i}`}
+                    tabIndex={0}
+                    hidden={activeIndex !== i}
+                    data-testid={`tabpanel-${i}`}
                   >
-                    {t}
-                  </button>
+                    {activeIndex === i ? panel : null}
+                  </div>
                 ))}
               </div>
-              <div
-                role="tabpanel"
-                id={`panel-${activeIndex}`}
-                aria-labelledby={`tab-${activeIndex}`}
-                tabIndex={0}
-                data-testid="tabpanel"
-              >
-                {panel}
-              </div>
-            </main>
 
-            <aside data-testid="map-panel" className="min-h-[320px] lg:col-span-1">
-              <Suspense fallback={<div data-testid="deforestation-map-loading" />}>
-                <DeforestationMap data={mapData} year={mapYear} biome={mapBiome} />
-              </Suspense>
-            </aside>
-          </div>
+              <aside data-testid="map-panel" aria-label="Mapa de desmatamento" className="map-card min-w-0">
+                <p data-testid="map-source-note" className="mb-3 text-sm text-text-muted">
+                  Ano de referência dos dados estaduais: {MAP_DATA_YEAR} (estimativa). Fonte: PRODES/INPE.
+                </p>
+                <Suspense fallback={<div data-testid="deforestation-map-loading" />}>
+                  <DeforestationMap data={mapData} year={mapYear} biome={mapBiome} />
+                </Suspense>
+              </aside>
+            </div>
+          </main>
         </div>
 
         <footer data-testid="footer" className="mt-8 border-t border-border pt-4 text-center text-xs text-text-muted">

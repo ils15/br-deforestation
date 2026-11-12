@@ -42,6 +42,8 @@ export const cerradoData: CerradoYear[] = [
   { year: 2026, km2: 5516.69, estimate: true, ...PROVENANCE },
 ]
 
+export const MAP_DATA_YEAR = 2026
+
 export const amazoniaStates2026: StateContribution[] = [
   { state: 'Pará', km2: 1130, pct: 33.9, ...PROVENANCE },
   { state: 'Mato Grosso', km2: 849, pct: 25.5, ...PROVENANCE },

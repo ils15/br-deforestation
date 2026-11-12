@@ -29,6 +29,7 @@ describe('Sidebar', () => {
 
   it('renders sections with active key', () => {
     render(<Sidebar sections={TEST_GROUPS} activeKey='Amazônia' />)
+    expect(screen.getByRole('navigation', { name: 'Navegação lateral' })).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-section-Biomas')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-item-Amazônia')).toBeInTheDocument()
   })

@@ -119,28 +119,27 @@ export default function DeforestationMap({
         }
         const pathEl = (layer as Layer & { getElement?: () => HTMLElement | null }).getElement?.()
           ?? (layer as { _path?: HTMLElement })._path
-        const targets: Array<HTMLElement | Layer> = []
-        if (pathEl) targets.push(pathEl)
-        // Fallback for mocks/tests that treat the layer itself as the path.
-        targets.push(layer)
-        for (const target of targets) {
-          if (target && typeof target === 'object') {
-            try { (target as { tabIndex?: number }).tabIndex = 0 } catch { /* ignore */ }
-            if (typeof (target as { setAttribute?: (a: string, b: string) => void }).setAttribute === 'function') {
-              (target as { setAttribute: (a: string, b: string) => void }).setAttribute('role', 'button')
-            }
-          }
-        }
         const clickable = layer as Layer & {
           on?: (event: string, handler: (e?: unknown) => void) => void
         }
         if (typeof clickable.on === 'function' && onStateClick) {
+          if (pathEl) {
+            pathEl.setAttribute('role', 'button')
+            pathEl.setAttribute('tabindex', '0')
+            pathEl.setAttribute(
+              'aria-label',
+              `Ver detalhes de desmatamento em ${nome} (${sigla}): ${value.toLocaleString('pt-BR')} km²`,
+            )
+          }
           const handler = () => onStateClick(nome, value)
           clickable.on('click', handler)
           clickable.on('keydown', (e: unknown) => {
-            const key = (e as { originalEvent?: KeyboardEvent; key?: string })?.originalEvent?.key
-              ?? (e as { key?: string })?.key
-            if (key === 'Enter' || key === ' ') handler()
+            const event = e as { originalEvent?: KeyboardEvent; key?: string }
+            const key = event?.originalEvent?.key ?? event?.key
+            if (key === 'Enter' || key === ' ') {
+              event?.originalEvent?.preventDefault?.()
+              handler()
+            }
           })
         }
       },
@@ -162,7 +161,6 @@ export default function DeforestationMap({
       <MapContainer
         center={[-14, -52]}
         zoom={4}
-        style={{ height: '420px', width: '100%' }}
         bounds={bounds}
         scrollWheelZoom={false}
         aria-label="Mapa de desmatamento por estado"
@@ -180,6 +178,3 @@ export default function DeforestationMap({
     </div>
   )
 }
-
-
-
