@@ -6,6 +6,7 @@ export default defineConfig({
   base: '/br-deforestation/',
   plugins: [react()],
   build: {
+    chunkSizeWarningLimit: 500,
     rolldownOptions: {
       output: {
         codeSplitting: {
@@ -18,6 +19,11 @@ export default defineConfig({
             {
               name: 'recharts',
               test: /node_modules[\\/]recharts[\\/]/,
+              priority: 1,
+            },
+            {
+              name: 'leaflet',
+              test: /node_modules[\\/](leaflet|react-leaflet|@react-leaflet)[\\/]/,
               priority: 1,
             },
           ],
